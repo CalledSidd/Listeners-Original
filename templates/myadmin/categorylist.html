@@ -1,0 +1,35 @@
+{% extends 'myadmin/index.html' %}
+{% block content  %}
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <td><a href="{% url 'addcat' %}" class="btn btn-sm btn-primary">Add Category</a></td>
+                        <h6 class="mb-0">Category Management</h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">Category Name</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for category in values %}   
+                                <tr> 
+                                    <td>{{category.category_name}}</td>
+                                    <td>{{category.description}}</td>
+                                    <td><a href="{% url 'deletecat' category.id  %}" class="btn btn-sm btn-danger">Delete</a></td>
+                                    <td><a href="{% url 'editcat' category.id %}" class="btn btn-sm btn-dark">Edit</a></td>
+                                </tr>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+{% endblock %}

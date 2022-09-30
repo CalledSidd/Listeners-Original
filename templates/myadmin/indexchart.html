@@ -1,0 +1,228 @@
+{% extends 'myadmin/index.html' %}
+{% block content %}
+        <!-- Sale & Revenue Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-6 col-xl-3">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                        <i class="fa fa-chart-line fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <p class="mb-2">COD</p>
+                            <h6 class="mb-0">{{cod_total | floatformat}}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                        <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <p class="mb-2">RazorPay</p>
+                            <h6 class="mb-0">{{raz_total| floatformat }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                        <i class="fa fa-chart-area fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <p class="mb-2">PayPal</p>
+                            <h6 class="mb-0">{{pay_total| floatformat }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                        <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <p class="mb-2">Total Revenue</p>
+                            <h6 class="mb-0">{{total| floatformat }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Sale & Revenue End -->
+
+
+        <!-- Sales Chart Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-6">
+                    <div class="bg-light text-center rounded p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Sales</h6>
+                            
+                        </div>
+                        <canvas id="myChart" height="150"></canvas>
+                        {% comment %} <canvas id="worldwide-sales"></canvas> {% endcomment %}
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6">
+                    <div class="bg-light text-center rounded p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Payment Method</h6>
+                            
+                        </div>
+                        <canvas id="donut" width="600" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <!-- Recent Sales Start -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="bg-light text-center rounded p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Recent Sales</h6>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Order Id</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Method </th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for sale in salesreport %}
+                                    <tr>
+                                        <td>{{sale.date}}</td>
+                                        <td>{{sale.order_id}}</td>
+                                        <td>{{sale.user.username}}</td>
+                                        <td>{{sale.payment.amount_paid}}</td>
+                                        <td>{{sale.payment.payment_method}}</td>
+                                        <td><a class="btn btn-sm btn-primary" href="{% url 'vieworder' sale.id %}">Detail</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="col-sm-12 col-md-6 col-xl-4 p-3">
+                    <div class="h-100 bg-light rounded p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">To Do List</h6>
+                        </div>
+                        <form action="{% url 'todolist' %}" method='POST'>
+                            {% csrf_token %}
+                        <div class="d-flex mb-2">
+                            <input class="form-control bg-transparent" type="text" name="todo" placeholder="Enter task">
+                            <button type="submit" class="btn btn-primary ms-2">Add</button>
+                        </div>
+                    </form>
+                    {% for to in todo %}
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <div class="w-100 ms-3">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <span>&nbsp{{to.todolist}}</span>
+                                <a href="{% url 'todo_delete' to.id %}"><button class="btn btn-sm"><i class="fa fa-times"></i></button></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+                <!-- Recent Sales End -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.0/chart.min.js"></script>
+<script>
+                                  const ctx = document.getElementById('myChart').getContext('2d');
+                                  const myChart = new Chart(ctx, {
+                                      type: 'bar',
+                                      data: {
+                                          labels: ['cod ','razorpay','paypal'],
+                                          datasets: [{
+                                              label: 'Total Amount',
+                                              data: ['{{cod_total}}','{{raz_total}}','{{pay_total}}'],
+                                              backgroundColor: [
+                                                  // 'rgba(255, 99, 132, 0.8)',
+                                                  '#5867dd',
+                                                  '#00a65a ',
+                                                  '#04c1c4 ',
+                                                  'rgba(75, 192, 192, 0.8)',
+                                                  'rgba(153, 102, 255, 0.8)',
+                                                  'rgba(255, 159, 64, 0.8)'
+                                              ],
+                                              borderColor: [
+                                              '#5867dd',
+                                                  '#00a65a ',
+                                                  '#04c1c4 ',
+                                                  'rgba(75, 192, 192, 1)',
+                                                  'rgba(153, 102, 255, 1)',
+                                                  'rgba(255, 159, 64, 1)'
+                                              ],
+                                              borderWidth: 1
+                                          }]
+                                      },
+                                      options: {
+                                          scales: {
+                                              y: {
+                                                  beginAtZero: true
+                                              }
+                                          }
+                                      }
+                                  });
+                                  </script>
+                                  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+                                  <script>
+                                    let donut = document.getElementById('donut').getContext('2d');
+                                  
+                                    // Global Options
+                                    Chart.defaults.global.defaultFontFamily = 'Lato';
+                                    Chart.defaults.global.defaultFontSize = 18;
+                                    Chart.defaults.global.defaultFontColor = '#777';
+                                  
+                                    let massPopChart = new Chart(donut, {
+                                        type: 'doughnut', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                                        data: {
+                                            labels: ['COD', 'RAZORPAY', 'PAYPAL'],
+                                            datasets: [{
+                                                label: 'TOTAL SALES',
+                                                data: ['{{cod_total}}','{{raz_total}}','{{pay_total}}'],
+                                                   
+                                                //backgroundColor:'green',
+                                                backgroundColor: [
+                                                    'rgba(255, 199, 132, 0.6)',
+                                                    'rgba(174, 62, 235, 0.6)',
+                                                    'rgba(255, 06, 106, 0.6)',
+                                                   
+                                                ],
+                                                borderWidth: 1,
+                                                borderColor: '#777',
+                                                hoverBorderWidth: 3,
+                                                hoverBorderColor: '#000'
+                                            }]
+                                        },
+                                        options: {
+                                            title: {
+                                                display: true,
+                                                text: '',
+                                                fontSize: 25
+                                            },
+                                            legend: {
+                                                display: true,
+                                                position: 'right',
+                                                labels: {
+                                                    fontColor: '#000'
+                                                }
+                                            },
+                                            layout: {
+                                                padding: {
+                                                    left: 50,
+                                                    right: 0,
+                                                    bottom: 0,
+                                                    top: 0
+                                                }
+                                            },
+                                            tooltips: {
+                                                enabled: true
+                                            }
+                                        }
+                                    });
+                                  </script>
+                                  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.0/chart.min.js"></script>
+{% endblock content %}

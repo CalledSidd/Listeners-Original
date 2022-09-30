@@ -1,0 +1,62 @@
+{% extends 'home/base.html' %}
+{% block content %}
+{% if not orders %}
+<h4> You Have No Orders Currently </h4>
+{% else %}
+<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1"></th>
+									<th class="column-2">Product</th>
+									<th class="column-3">Quantity</th>
+									<th class="column-4">Price</th>
+									<th class="column-5">Status</th>
+									<th class='column-6'></th>
+								</tr>
+                                {% for order in orders %}
+								<tr class="table_row">
+                                    <td class="column-1">
+										<input type="hidden" value="{{order.id}}" class="prod_id">
+										<div class="how-itemcart1">
+											<img src="{{ order.product.image1.url }}" alt="IMG">
+										</div>
+									</td>
+									<td class="column-2">{{order.product}}</td>
+									<td class="column-3">{{order.quantity}}</td>
+									<td class="column-4">{{order.payment.amount_paid| floatformat}}</td>
+                                    <td class="column-5">{{order.status}}</td>
+									{% if order.status != 'Cancelled'  %}
+									{% if order.status != 'Completed'  %}
+									{% if order.status != 'Returned' %}
+									<td><a href="{% url 'cancelorder' order.id %}"><button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04  js-addcart-detail" id="addToCartBtn">
+										Cancel
+									</button>
+									{% endif %}
+									{% endif %}
+									{% endif %}
+									{% if order.status == 'Completed' %}
+									<td><a href="{% url 'returnorder' order.id %}"><button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04  js-addcart-detail" id="addToCartBtn">
+										Return
+									</button></a></td><hr>
+									{% endif %}
+									{% if order.status == 'Cancelled' %}
+									<td><a><button class="flex-c-m stext-101 cl0 size-101 bg5 bor1  p-lr-15 trans-04  js-addcart-detail" disabled>
+										Cancel
+									</button>
+									{% endif %}
+									<td class='column-6 p-5'><a class="text-decoration-none" href=" {% url 'invoice' order.id %}">
+										<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 ">
+										<i class="fs-16 zmdi zmdi-file"></i>
+										</div></a>
+									</td>
+								</tr>
+								</tr>
+								{% endfor %}
+							</table>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+{% endblock %}

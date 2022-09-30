@@ -1,0 +1,39 @@
+{% extends 'myadmin/index.html' %}
+
+{% block content %}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Order Management</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">User</th>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Payment</th>
+                        <th scope="col">View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ordr in order %}
+                    <tr>
+                        <td>{{ordr.address.firstname}}</td> 
+                        <td>{{ordr.order_id}}</td>
+                        <td>{{ordr.payment.amount_paid}}</td>
+                        <td>{{ordr.date}}</td>
+                        <td>{{ordr.payment.payment_method}}</td>
+                        <td><a href="{% url 'vieworder' ordr.id %}"><button class="btn btn-sm btn-dark">View</button></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

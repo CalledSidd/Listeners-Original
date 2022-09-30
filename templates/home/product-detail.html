@@ -1,0 +1,139 @@
+{% extends 'home/base.html' %}
+{% block content %}
+
+<!-- breadcrumb -->
+<div class="container">
+	<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+		<a href="{% url 'home' %}" class="stext-109 cl8 hov-cl1 trans-04">
+			Home
+			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+		</a>
+
+		<a href="" class="stext-109 cl8 hov-cl1 trans-04">
+			{{value.category}}
+			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+		</a>
+
+		<span class="stext-109 cl4">
+			{{value.product_name}}
+		</span>
+	</div>
+</div>
+
+
+<!-- Product Detail -->
+<section class="sec-product-detail bg0 p-t-65 p-b-60">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-lg-7 p-b-30">
+				<div class="p-l-25 p-r-30 p-lr-0-lg">
+					<div class="wrap-slick3 flex-sb flex-w">
+						<div class="wrap-slick3-dots"></div>
+						<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+						<div class="slick3 gallery-lb">
+							<div class="item-slick3" data-thumb="{{value.image2.url}}">
+								<div class="wrap-pic-w pos-relative">
+									<div id="imag-container">
+										<img src="{{value.image2.url}}" alt="IMG-PRODUCT" id="zoom">
+									</div>
+									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+										href="{{value.image2.url}}">
+										<i class="fa fa-expand"></i>
+									</a>
+								</div>
+							</div>
+
+							<div class="item-slick3" data-thumb="{{value.image3.url}}">
+								<div class="wrap-pic-w pos-relative">
+									<img src="{{value.image3.url}}" alt="IMG-PRODUCT" id="zoom">
+
+									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+										href="{{value.image3.url}}">
+										<i class="fa fa-expand"></i>
+									</a>
+								</div>
+							</div>
+
+							<div class="item-slick3" data-thumb="{{value.image4.url}}">
+								<div class="wrap-pic-w pos-relative">
+									<img src="{{value.image4.url}}" alt="IMG-PRODUCT" id="zoom">
+
+									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+										href="{{value.image4.url}}">
+										<i class="fa fa-expand"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+				<div class="col-md-6 col-lg-5 p-b-30 pt-5">
+					<div class="p-r-50 p-t-5 p-lr-0-lg pt-5">
+						<div class="container pt-5">
+							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
+								{{value.product_name}}
+							</h4>
+							<!-- <span class="ltext-10 cl2"> -->
+							{% if value.discount_price %}
+							<span class="mtext-105 cl2 js-name-detail p-b-14">
+								<del>{{value.price}}</del>
+							</span>
+							<span class="mtext-105 cl2 js-name-detail p-b-14">
+								&nbsp{{value.discount_price}}
+							</span>
+							{% else %}
+							<span class="mtext-105 cl2 js-name-detail p-b-14">
+								{{value.price}}
+							</span>
+							{% endif 	%}
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-204 flex-w flex-m respon6-next">
+									<input type="hidden" class="product-id" value="{{value.id}}" />
+									<input type="hidden" class="product-title" value="{{value.product_name}}" />
+									<a href="{% url 'addtocart' value.id %}"><button
+											class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04  js-addcart-detail"
+											id="addToCartBtn">
+											Add to cart
+										</button>
+										<a href="{% url 'add_to_wishlist' value.id %}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+											<i class="zmdi zmdi-favorite-outline"></i>
+										</a>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+
+		<div class="bor10 m-t-50 p-t-43 p-b-40">
+			<!-- Tab01 -->
+			<div class="tab01">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="nav-item p-b-10">
+						<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
+					</li>
+					<!-- Tab panes -->
+					<div class="tab-content p-t-43">
+						<!-- - -->
+						<div class="tab-pane fade show active" id="description" role="tabpanel">
+							<div class="how-pos2 p-lr-15-md">
+								<p class="stext-102 cl6">
+									{{value.description}}
+								</p>
+							</div>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

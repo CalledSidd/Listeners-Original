@@ -1,0 +1,50 @@
+{% extends 'myadmin/index.html' %}
+{% block content %}
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <td><a href="{% url 'addproduct'  %}" class="btn btn-sm btn-primary"">Add Product</a></td>
+                        <h6 class="mb-0">Product Management</h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">Sl.No</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}   
+                                <tr>
+                                    <td>{{product.id}}</td> 
+                                    <td>{{product.product_name}}</td>
+                                    <td>{{product.price}}</td>
+                                    <td>{{product.stock}}</td>
+                                    <td>{{product.category}}</td>
+                                    <td><a href="{% url 'editproduct' product.id %}" class="btn btn-sm btn-dark"">Edit</a></td>
+                                    <td><a href="{% url 'deleteproduct' product.id %}" class="btn btn-sm btn-danger"">Delete</a></td>
+                                </tr>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="...">
+                        <ul class="pagination pagination-sm">
+                            <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                            <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+                            <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+                            <p>Has Next : {{products.has_next}} | </p><hr><br>
+                            <p>Current Page : {{products.number}} | </p><hr><br>
+                            <p>No. Of Pages : {{products.paginator.num_pages}}</p>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            
+            {% endblock %}

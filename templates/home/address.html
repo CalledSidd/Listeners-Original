@@ -1,0 +1,59 @@
+{% extends 'home/basehome.html' %}
+{% load static %}
+{% block content %}
+<div class="main">
+<div class="cart-table-area section-padding-15">
+    <div class="container">
+            <div class="col-12 col-lg-8 ">
+                <div class="checkout_details_area mt-50 clearfix">
+                    <div class="cart-title">
+                        <br>
+                        <h2>Add Address</h2>
+                        <br>
+                    </div>
+                    <form action="{% url 'addaddress' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" name="first_name" value=""
+                                    placeholder="First Name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" name="last_name" value=""
+                                    placeholder="Last Name" required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input type="email" class="form-control" name="email" placeholder="Email" value="" name="email" required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input type="text" class="form-control mb-3" id="address" placeholder="Address"
+                                    value="" name="address" required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input type="text" class="form-control" id="city" placeholder="Town" value="" name="town" required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <input type="text" class="form-control" id="city" placeholder="State" value="" name="state" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" id="zipCode" placeholder="Zip Code" value="" name="zip_code" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" id="phone_number" min="0"
+                                    placeholder="Phone No" value="" name="phone_number">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <textarea name="comment" class="form-control w-100" id="comment" cols="30" rows="10"
+                                    placeholder="Leave a comment about your order"></textarea>
+                            </div>
+                        </div>
+                        
+                </div>
+            </div>
+            <button type="submit" class="flex-c-m stext-101 cl0 size-100 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                Add Address
+            </button> 
+    </div> 
+</form>
+
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends 'home/basehome.html' %}
+{% load static %}
+{% block content %}
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="" class="stext-109 cl8 hov-cl1 trans-04">
+				Payment
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Place Order
+			</span>
+		</div>
+	</div>
+	<!-- Shoping Cart -->
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart">
+							</table>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-sm-6">
+						  <div class="card">
+							<div class="card-body">
+							  <h5 class="card-title">Address</h5>
+							  <p class="card-text">{{data.first_name}}</p>
+							  <a href="#" class="btn btn-dark">Add Address</a>
+							</div>
+						  </div>
+						</div>
+						<div class="col-sm-6">
+						  <div class="card">
+							<div class="card-body">
+							  <h5 class="card-title">Special title treatment</h5>
+							  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+							</div>
+						  </div>
+						</div>
+					  </div>
+				</div>
+					<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+						<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+							<h4 class="mtext-109 cl2 p-b-30">
+								
+							</h4>
+							<div class="flex-w flex-t bor12 p-b-13">
+								<div class="size-208">
+									<span class="stext-110 cl2">
+										
+									</span>
+								</div>
+								<div class="size-209">
+									<span class="mtext-110 cl2">
+										
+									</span>
+								</div>
+							</div>
+							<div class="flex-w flex-t p-t-27 p-b-33">
+							</div>
+							
+						</div>
+					</div>
+					<div id="paypal-button-container">
+						<!-- Paypal button here   -->
+					</div>
+				</div>
+		</div>
+		<script>
+			// Render the PayPal button into #paypal-button-container
+			paypal.Buttons({
+				style: {
+                color:  'blue',
+                shape:  'pill',
+                label:  'pay',
+                height: 40
+            },
+
+				// Set up the transaction
+				createOrder: function (data, actions) {
+					return actions.order.create({
+						purchase_units: [{
+							amount: {
+								value: '88.44'
+							}
+						}]
+					});
+				},
+
+				// Finalize the transaction
+				onApprove: function (data, actions) {
+					return actions.order.capture().then(function (orderData) {
+						// Successful capture! For demo purposes:
+						console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+						var transaction = orderData.purchase_units[0].payments.captures[0];
+						alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+						// Replace the above to show a success message within this page, e.g.
+						// const element = document.getElementById('paypal-button-container');
+						// element.innerHTML = '';
+						// element.innerHTML = '<h3>Thank you for your payment!</h3>';
+						// Or go to another URL:  actions.redirect('thank_you.html');
+					});
+				}
+
+
+			}).render('#paypal-button-container');
+	</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'myadmin/blank.html' %}
+
+{% block content %}
+    <div class="content-header sty-one">
+        <h1 class="text-black"></h1>
+        <ol class="breadcrumb">
+        <li><a href="{% url 'adminhome' %}">Home</a></li>
+        <li class="sub-bread"><i class="fa fa-angle-right"></i> Forms</li>
+        <li><i class="fa fa-angle-right"></i>New Category</li>
+        </ol>
+    </div>
+    
+    <!-- Main content -->
+    <div class="content">
+        <div  class="d-flex justify-content-center" >
+        <div class="col-lg-6">
+            <div class="card card-outline ">
+            <div class="card-header bg-blue">
+                <h5 class="text-dark m-b-0">Add Category</h5>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                <label for="">Name</label>
+                <input type="text" class="form-control" id="" placeholder="Name" name="name" >
+                </div>
+                <div class="form-group">
+                <label for="">Description</label>
+                <input type="text" class="form-control" id="" placeholder="Description" name="description" >
+                </div>
+                <div class="form-group">
+                <label for="">Image</label>
+                <input type="file" class="form-control"  placeholder="Main Image" name="image1" >
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+            </div>
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+            </div>
+            </div>
+        </div>
+    </div>
+<script defer src="https://cdn.crop.guide/loader/l.js?c=QLTQNH"></script>
+{% endblock %}

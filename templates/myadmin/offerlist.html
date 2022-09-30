@@ -1,0 +1,66 @@
+{% extends 'myadmin/index.html' %}
+{% block content  %}
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <td><a href="{% url 'addproductoffer' %}" class="btn btn-sm btn-primary">Add Product Offer</a></td>
+                        <h6 class="mb-0">Product Offer</h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            {% comment %} <form method == 'POST' action = '{% url '' %}' {% endcomment %}
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">Product Offer Name</th>
+                                    <th scope="col">Discount</th>
+                                    <th scope="col">Delete</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in OfferP %}   
+                                <tr> 
+                                    <td>{{product.product}}</td>
+                                    <td>{{product.discount}}</td>
+                                    <td><a href="{% url 'deleteproductoffer' product.id %}" class="btn btn-sm btn-danger">Delete</a></td>
+                                </tr>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <td><a href="{% url 'addcatofffer' %}" class="btn btn-sm btn-primary">Add Category Offer</a></td>
+                        <h6 class="mb-0">Category Offer</h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">Category Offer Name</th>
+                                    <th scope="col">Discount</th>
+                                    <th scope="col">Delete</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for category in OfferC %}   
+                                <tr> 
+                                    <td>{{category.category}}</td>
+                                    <td>{{category.discount}}</td>
+                                    <td><a href="{% url 'deletecategoryoffer' category.id %}" class="btn btn-sm btn-danger">Delete</a></td>
+                                    
+                                </tr>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

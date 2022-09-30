@@ -1,0 +1,33 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('',views.home,name='home'),
+    path('login',views.userlogin,name='login'),
+    path('signup/',views.signup, name='signup'),
+    path('logout/',views.userlogout,name='logout'),
+    path('shop/',views.shop,name='shop'),
+    path('iem/',views.iem,name='iem'),
+    path('overtheear/',views.overtheear,name='overtheear'),
+    path('truewireless/',views.TWS,name='truewireless'),
+    path('userprofile/',views.userprofile,name='userprofile'),
+    path('deleteaddress/',views.deleteAddress,name='deleteaddress'),
+    path('search/',views.search,name='search'),  
+    path('changepassword/',views.changepassword, name='changepassword'),
+    path('detail/<int:id>',views.productdetail,name='productdetail'),
+    path('phonelogin/',views.number_login,name='phonelogin'),
+    path('otplogin/<int:phone_number>',views.otp,name='otplogin'),
+    path('iemhtml/',views.inearmonitor,name='inearmonitor'),
+    path('overear/',views.OverEar,name='overear'),
+    path('tws/',views.truewireless,name='truews'),
+    path('whatsnew/',views.WhatsNew, name='whatsnew'),
+    path('LowtoHigh/',views.LowtoHigh,name='LowtoHigh'),
+    path('HightoLow/',views.HightoLow,name='HightoLow'),
+    path('Popularity/',views.Popularity,name='Popularity'),
+    path('orderlist/',views.listorder,name='userorders'),
+    path('cancelorder/<int:id>',views.cancelorder,name='cancelorder'),
+    path('invoice/<int:id>',views.invoice,name='invoice'),
+    path('flush/',views.flush),
+    path('return/<int:id>',views.returnOrder,name='returnorder'),
+    path('loginsignup/',views.loginsignup,name='loginsignup'),
+]

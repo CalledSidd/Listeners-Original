@@ -1,0 +1,40 @@
+
+from django.urls import path
+from . import views
+from django.contrib import admin
+
+urlpatterns = [
+    path('login/',views.adminlogin,name='adminlogin'),
+    path('',views.adminHome,name='adminhome'),
+    path('logout/',views.adminlogout,name='adminlogout'),
+    path('userlist/',views.listuser,name='userlist'),
+    path('blockuser/<int:id>/',views.blockuser,name='blockuser'),
+    path('product',views.productlist,name='product'),
+    path('addproduct',views.addproduct,name='addproduct'),
+    path('deleteproduct/<int:id>',views.deleteproduct,name='deleteproduct'),
+    path('editproduct/<int:id>',views.editproduct,name='editproduct'),
+    path('listcategory/',views.listcategory,name='listcat'),
+    path('deletecategory/<int:id>',views.deletecategory,name='deletecat'),
+    path('editcategory/<int:id>',views.editcategory, name='editcat'),
+    path('orderlist/',views.orderlist,name='orderlist'),
+    path('addcategory/',views.addcategory,name='addcat'),
+    path('orderstatus/<int:id>/',views.changeorderstatus,name='changeorder'),
+    path('vieworder/<int:id>/',views.vieworder,name='vieworder'),
+    path('couponlist/',views.ViewCoupon,name='couponlist'),
+    path('deletecoupon/<int:id>',views.DeleteCoupon, name='deletecoupon'),
+    path('addcoupon/',views.AddCoupon,name='addcoupon'),
+    path('listoffer/',views.ListOffer,name='listoffer'),
+    path('addcategoryoffer/',views.AddCategoryOffer,name='addcatofffer'),
+    path('addproductoffer/',views.AddProductOffer,name='addproductoffer'),
+    path('deletecategoryoffer/<int:id>',views.DeleteCategoryOffer,name='deletecategoryoffer'),
+    path('deleteproductoffer/<int:id>',views.DeleteProductOffer,name='deleteproductoffer'),
+    path('salesReport/',views.salesReport, name='salesReport'),
+    path('date_range/',views.date_range, name='date_range'),
+    path('monthlyreport/<int:date>',views.monthlyreport, name='monthlyreport'),
+    path('yearlyreport/<int:date>',views.yearlyreport, name='yearlyreport'),
+    path('todolist/',views.todolist,name='todolist'),
+    path('tododelete/<int:id>',views.todo_delete,name='todo_delete'),
+    # path('download_pdf/',views.download_pdf, name='download_pdf'),
+    path('download_csv/',views.download_csv,name='download_csv'),
+    path('download_excel/',views.download_excel,name='download_excel'),
+]

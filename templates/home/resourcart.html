@@ -1,0 +1,178 @@
+{% extends 'home/basehome.html' %}
+{% load static %}
+{% block content %}
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="{% url 'home' %}" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Shoping Cart
+			</span>
+		</div>
+	</div>
+		
+
+	<!-- Shoping Cart -->
+	<!-- <form action="" class="bg0 p-t-75 p-b-85" method="POST"> -->
+		
+		<div class="container">
+			{% if not cart_items  %}
+			<h2>Your Cart is Empty</h2>
+			{% else %}
+			<div class="row">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1">Product</th>
+									<th class="column-2"></th>
+									<th class="column-3">Price</th>
+									<th class="column-4">Quantity</th>
+								</tr>
+								{% for cart_item in cart_items %}
+								<tr class="table_row">
+									<td class="column-1">
+										
+										<input type="hidden" value="{{cart_item.id}}" class="prod_id">
+										<div class="how-itemcart1">
+											<img src="{{ cart_item.product.image1.url }}" alt="IMG">
+										</div>
+									</td>
+									<td class="column-2">{{ cart_item.product.product_name }}</td>
+									<td class="column-3">{{ cart_item.product.price }} id="each_total{{cart_item.product.id}}" value="{{cart_item.product.id}}" </td>
+									<td class="column-4">
+										<div class="wrap-num-product flex-w m-l-auto m-r-0">
+											{% comment %} <a href="{% url 'removefromcart' cart_item.product.id %}" style="text-decoration: None;"><div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+												<button class="addToCartBtn"><i class="fs-16 zmdi zmdi-minus"></i></button>
+											</div>
+										</a> {% endcomment %}
+										<input type="button" class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" onclick="removefromcart('{{cart_item.id}}','{{cart_item.product.id}}')"  value='-'>
+										<input class="mtext-104 cl3 txt-center num-product" type="number" id="product_quantity" name="num-product1" value="{{ cart_item.quantity }}">
+										<input type="button" class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" onclick="addtocart('{{cart_item.id}}')"  value='+'>
+											{% comment %} <a href="{% url 'addtocart' cart_item.product.id %} " style="text-decoration: None;"><div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-plus"></i>
+											</div>
+										</a> {% endcomment %}
+										</div>
+									</td>	
+									{% comment %} <td class="column-5"></td> {% endcomment %}
+									<input type="number"  id="" value="{{ cart_item.sub_total }}">
+									<td><a href="{% url 'removecartitem' cart_item.product.id %}" style="text-decoration: None;" class="flex-c-m stext-101 cl0 size-12 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer js-removecart-detail">
+									<i class="zmdi zmdi-delete"></i>
+									</td></a> 
+								</tr>
+								{% endfor %}
+							</table>
+						</div>
+						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w flex-m m-r-20 m-tb-5">
+								<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
+									
+								<div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+									Apply coupon
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+						<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+							<h4 class="mtext-109 cl2 p-b-30">
+								Cart Totals
+							</h4>
+							<div class="flex-w flex-t bor12 p-b-13">
+								<div class="size-208">
+									<span class="stext-110 cl2">
+										Subtotal:<br>
+										Tax	    : 
+									</span>
+								</div>
+								<div class="size-209">
+									<span class="mtext-110 cl2">
+										<input id="total_price" type="number" value="{{total}}" disabled>
+										<input id="gst" type="number" value="{{tax}}" disabled>
+									</span>
+								</div>
+							</div>
+							<div class="flex-w flex-t p-t-27 p-b-33">
+								<div class="size-208">
+									<span class="mtext-101 cl2">
+									Total:
+									</span>
+								</div>
+
+								<div class="size-209 p-t-1">
+									<span class="mtext-110 cl2">
+										<input id="total_amount" type="number" value=" {{grand_total}}" disabled>
+									</span>
+								</div>
+							</div>
+							<a href="{% url 'checkout' %}"><button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+								Proceed to Checkout
+							</button></a> 
+						</div>
+					</div>
+				</div>
+				{% endif %}
+		</div>
+	</form>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script>
+			function addtoCart(pid){
+				// pid -product id
+				console.log(pid)
+				xhttp.onload = function () {
+				  var re = this.responseText
+			console.log(re)
+			document.getElementById("product_quantity"+pid).value= this.responseText;
+			p_price= document.getElementById("each_total"+pid).value;
+			
+			console.log(p_price, 'each price')
+			p_price=parseInt(p_price);
+			sub_total=p_price*this.responseText;
+			console.log(sub_total, 'total price')
+			document.getElementById("sub_total"+pid).value=sub_total;
+			total_price = document.getElementById("total_price").value;
+			totall_price = parseInt(total_price) + parseInt(p_price);
+			console.log(totall_price);
+			gst = totall_price * (2/100) ;
+			total_amount = totall_price + gst;
+			document.getElementById("total_price").value=totall_price;
+			document.getElementById("gst").value=gst;
+			document.getElementById("total_amount").value=total_amount;
+	
+			qn = document.getElementById("product_quantity"+pid).value= this.responseText;
+	
+			if(qn < 1){
+			  document.getElementById("product_quantity"+pid).style.display= hidden;
+			}
+			
+			
+			
+	
+	
+			}
+	
+			xhttp.open("GET", "update_cart/" + pid);
+			xhttp.send();
+	
+	
+			}
+		const xhttp = new XMLHttpRequest();
+	
+	</script>
+	
+
+{% endblock %}
+
+
+
+
+
+

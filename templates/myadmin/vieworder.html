@@ -1,0 +1,69 @@
+{% extends 'myadmin/index.html' %}
+
+{% block content %}
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">User</th>
+        <th scope="col">Product</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Address</th> 
+        <th scope="col">Status</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for x in orderproduct %}
+      <tr>
+        <th scope="row">{{x.user.first_name}}</th>
+        <td>{{x.product}}</td>
+        <td>{{x.quantity}}</td>
+        <td>{{x.order.address.firstname}}{{x.order.address.lastname}}<br>
+            {{x.order.address.phonenumber}}<br>
+            {{x.order.address.address}},
+            {{x.order.address.town}}
+        </td>
+        <td>{{x.status}}</td>
+        <!-- ?????????????????????/? -->
+        {% if x.status == "Completed" or x.status == "Cancelled" %}
+        {% else %}
+        <td>
+          <form action="{% url 'changeorder' x.id %}" method = 'POST'>
+            {% csrf_token %}
+          <select class="nice-select" name="status" value="status">
+            {% comment %} {% if x.status == "Processing" %} {% endcomment %}
+            <option>Processing</option>
+            {% comment %} {% elif x.status== "Confirmed" %} {% endcomment %}
+            <option>Confirmed</option>
+            {% comment %} {% elif  x.status == "Accepted" %} {% endcomment %}
+            <option>Accepted</option>
+            {% comment %} {% elif  x.status=="Out For Delivery" %} {% endcomment %}
+            <option>Out For Delivery</option>
+            {% comment %} {% elif  x.status=="Completed" %} {% endcomment %}
+            <option>Completed</option>
+            {% comment %} {% elif  x.status=="Cancelled" %} {% endcomment %}
+            <option>Cancelled</option>
+            {% comment %} {% endif %} {% endcomment %}
+            <!-- <option>return_accepted</option> -->
+            <option>Return Pending</option>
+            <option>Return Accepted</option>
+            <option>Returned</option>
+          </select>
+          </div>
+      </td>
+    <td>
+  <button class="btn btn-sm btn-dark"> submit</button>
+</td>
+</form>
+{% endif %}
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+</div>
+
+
+{% endblock %}

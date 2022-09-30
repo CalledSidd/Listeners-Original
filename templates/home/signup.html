@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
+{% load static %}
+<script src="{% static 'valid.js' %}"></script>
+    <title>SignUp</title>
+    <style>
+      input::placeholder{
+          font-family: 'Raleway', sans-serif;
+          font-weight: 800;
+      }
+      #logi{
+          font-family: 'Raleway', sans-serif;
+          font-weight: 800;
+      }
+      *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        background-color: #343a40;
+      }
+      #logged{
+        width: 100vw;
+        height: 100vh;
+      }
+      #logged h1{
+        padding-top: 120px;
+        color: white;
+        text-align: center;
+
+      }
+      #button{
+        margin-top: 120px;
+        margin-left: 46vw;
+      }
+  </style>
+</head>
+<body>
+    <section class="vh-100  bg-dark">
+        <div class="container py-5 h-100 bg-dark">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div class="card bg-dark text-white" style="border: 0px;">
+                <div class="card-body text-center">
+                  <div class="mb-md-5 mt-md-4">
+                    <h2 class="fw-bold mb-2 text-uppercase"></h2>
+                    <p class="text-white-50 mb-5"></p>
+                    <form action="{% url 'signup' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-outline form-white mb-4">
+                      <input type="text" id="fname_id" class="form-control form-control-lg"  placeholder="First Name" name="first_name" onkeyup="" required/>
+                      <label class="form-label" for="Name"></label>
+                    </div>
+                    <div class="form-outline form-white mb-4">
+                        <input type="text" id="fname_id" class="form-control form-control-lg"  placeholder="Last Name" name="last_name" onkeyup="" required/>
+
+                        <label class="form-label" for="Name"></label>
+                      </div>
+                    <div class="form-outline form-white mb-4">
+                        <input type="text" id="uname_id" class="form-control form-control-lg"  placeholder="Username" name="username" onkeyup="" required/>
+
+                        <label class="form-label" for="Username"></label>
+                      </div>
+                      <div class="form-outline form-white mb-4">
+                        <input type="phone_number" id="phone_number" class="form-control form-control-lg" placeholder="Phone Number" name="phone_number" onkeyup="" required/>
+
+                        <label class="form-label" for="phone_number"></label>
+                      </div>
+                    <div class="form-outline form-white mb-4">
+                      <input type="email" id="email_id" class="form-control form-control-lg" placeholder="Email" name="mail" onkeyup="" required/>
+
+                      <label class="form-label" for="Email"></label>
+                    </div>   
+                    <div class="form-outline form-white mb-4">
+                        <input type="password" id="pass_id" class="form-control form-control-lg" placeholder="Password" name="password" onkeyup="" required/>
+
+                        <label class="form-label" for="Password"></label>
+                      </div>     
+                        <div class="form-outline form-white mb-4">
+                        <input type="password" id="Password1" class="form-control form-control-lg" placeholder="Confirm Password" name="password2" required/>
+                        <label class="form-label" for="Password1"></label>
+                      </div>  
+                      <button class="btn btn-outline-primary btn-lg px-5" type="submit" id="Signup">Sign-Up</button>
+                    </form>
+                        <a href="{% url 'login' %}"><button class="btn btn-outline-primary btn-lg mt-2 px-5" type="submit" id="logi">Log-In</button></a>
+                      {% if messages %}
+                        {% for message in messages%}
+                            <p class="text-danger">{{message}}</p>
+                        {% endfor %}
+                      {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>  
+</body>
+</html>
