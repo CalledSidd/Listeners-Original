@@ -18,6 +18,6 @@ def view_wishlist(request):
 
 @login_required(login_url='login')
 def remove_wishlist(request, id):
-    wishlist = Wishlist.objects.get(user = request.user, id=id)
+    wishlist = Wishlist.objects.get(user = request.user, listed_product=id)
     wishlist.delete()
     return redirect(view_wishlist)
