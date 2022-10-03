@@ -12,9 +12,9 @@
 									<th class="column-2">Product</th>
 									<th class="column-3">Price</th>
 								</tr>
+								{% for wish in wishlist %}
                                 <tr class="table_row">
 									<td class="column-1">
-										{% for wish in wishlist %}
 										<input type="hidden" value="{{wish.id}}" class="prod_id">
 										<div class="how-itemcart1">
 											<img src="{{ wish.listed_product.image1.url }}" alt="IMG">

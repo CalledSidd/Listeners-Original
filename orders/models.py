@@ -35,6 +35,10 @@ class Orders(models.Model):
 
     def __str__(self):
         return self.user.first_name
+
+    class Meta:
+        verbose_name = 'Orders'
+        verbose_name_plural = 'Orders'
     
 
 class OrderProduct(models.Model):

@@ -1921,6 +1921,12 @@ input.num-product::-webkit-inner-spin-button {
   min-width: 680px;
 }
 
+.table-shopping-checkout {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 680px;
+}
+
 .table-shopping-cart tr {
   border-top: 1px solid #e6e6e6;
   border-bottom: 1px solid #e6e6e6;
