@@ -89,7 +89,7 @@ def removefromcart(request, id):
 
 def removecartitem(request, id):
     product   =  get_object_or_404(Products, id=id)
-    cart_item =  CartItem.objects.get(product=product)
+    cart_item =  CartItem.objects.get(product=product, user = request.user)
     cart_item.delete()
     return redirect('cart')
 

@@ -111,7 +111,7 @@
                             <h6 class="mb-0">Full Name</h6>
                           </div>
                           <div class="col-sm-9 text-secondary">
-                            {{user.first_name}}{{user.last_name}}
+                            {{user.first_name}}&nbsp{{user.last_name}}
                           </div>
                         </div>
                         <hr>
@@ -128,13 +128,8 @@
                           <div class="col-sm-3">
                             <h6 class="mb-0">Mobile</h6>
                           </div>
-                          {% for address in address %}
                           <div class="col-sm-9 text-secondary">
-                            {%if user.phone_number == None%}
-                            +91 {{address.phonenumber}}
-                            {% else %}
                             +91 {{user.phone_number}}
-                            {% endif %}
                           </div>
                         </div>
                         <hr>
@@ -143,6 +138,7 @@
                             <h6 class="mb-0">Address</h6>
                           </div>
                           <div class="col-sm-9 text-secondary">
+                            {% for address in address %}
                             {{address.firstname}}
                             {{address.lastname}} <br>
                             {{address.phonenumber}}<br>
@@ -157,7 +153,11 @@
                         <div class="row">
                             <div class="col-sm-12">
                               <a class="btn btn-info " href="{% url 'changepassword' %}">Change Password</a>
+                              {% if address %}
                               <a class="btn btn-info "href="{% url 'deleteaddress'  %}">Delete Address</a>
+                              {% else %}
+                              <a class="btn btn-info "href="{% url 'addaddress'  %}">Add Address</a>
+                              {% endif %}
                             </div>
                             {% for m in messages %}
                             <p class='text-success'>{{m}}</p>

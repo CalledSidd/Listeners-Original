@@ -159,6 +159,7 @@ def userlogout(request):
 def shop(request):
     products       = Products.objects.all().filter(Is_available=True)
     products_count = products.count()
+    Cate            = OfferCategory.objects.all()
     for r in products:
         try:
             Poffer = OfferProduct.objects.get(product= r.id)
@@ -171,10 +172,12 @@ def shop(request):
                 r.save()
         except Exception as e : 
             r.discount_price = None
-            r.save()  
+            r.save() 
+            
     context    = {
                 'products': products,
                 'Prod' : Prod,
+                'Cate'  : Cate,
             }
     return render(request,'home/product.html',context)
 
@@ -488,9 +491,46 @@ def edituserprofile(request):
     return render(request, 'home/userprofileedit.html')
 
 def productdetail(request,id):
-    value = Products.objects.get(id=id)
+    products = Products.objects.get(id=id)
+    Prod     = 0
+    Cat      = 0
+    try:
+            Poffer = OfferProduct.objects.get(product= products.id)
+            Prod   = Poffer.discount
+            if Poffer:
+                products.discount_price = int(products.price - (products.price*(Prod/100)))
+                products.save()
+    except Exception as e : 
+        products.discount_price = None
+        products.save()
+        try:
+            Coffer = OfferCategory.objects.get(category = products.category )
+            Cat    = Coffer.discount
+            if Coffer:
+                products.discount_price = int(products.price - (products.price*(Cat/100)))
+                products.save()
+        except Exception as e :
+            pass
+        try:
+            if Poffer and Coffer:
+                if Prod > Cat:
+                    products.discount_price = int(products.price - (products.price * (Prod/100)))
+                    products.save()
+                else:
+                    products.discount_price = int(products.price - (products.price * (Cat/100)))
+        except Exception as e:
+            pass
+        try:
+            if not Poffer and Coffer:
+                products.discount_price = None
+                products.save()
+            if not Prod and Coffer:
+                products.discount_price = None
+                products.save()
+        except Exception as e:
+            pass
     context = {
-        'value':value
+        'products' : products,
     }
     return render(request, 'home/product-detail.html',context)
 

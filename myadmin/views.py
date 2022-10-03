@@ -98,7 +98,7 @@ def blockuser(request, id):
 
 def productlist(request):
     products      = Products.objects.all()
-    paginator     = Paginator(products, 8)
+    paginator     = Paginator(products, 20)
     page          = request.GET.get('page')
     productsfinal = paginator.get_page(page)
     context = {
@@ -126,6 +126,9 @@ def addproduct(request):
         cat         = Category.objects.get(id=category)
         if name == '' or  description == '' or  price == '' or stock ==  '' or  image1 == '' or  image2 == '' or image3 == '' or  image4 == '':
             messages.error(request, "Fill All Fields Properly")
+            return redirect(addproduct)
+        elif Products.objects.filter(product_name__iexact=name).exists():
+            messages.error(request,"Product Already Exists")
             return redirect(addproduct)
         else:
             productss   = Products(product_name=name, category=cat, description=description, price=price, stock=stock, image1=image1, image2=image2, image3=image3,image4=image4)

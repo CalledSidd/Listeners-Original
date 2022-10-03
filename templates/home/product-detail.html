@@ -10,12 +10,12 @@
 		</a>
 
 		<a href="" class="stext-109 cl8 hov-cl1 trans-04">
-			{{value.category}}
+			{{products.category}}
 			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 		</a>
 
 		<span class="stext-109 cl4">
-			{{value.product_name}}
+			{{products.product_name}}
 		</span>
 	</div>
 </div>
@@ -32,35 +32,35 @@
 						<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
 						<div class="slick3 gallery-lb">
-							<div class="item-slick3" data-thumb="{{value.image2.url}}">
+							<div class="item-slick3" data-thumb="{{products.image2.url}}">
 								<div class="wrap-pic-w pos-relative">
 									<div id="imag-container">
-										<img src="{{value.image2.url}}" alt="IMG-PRODUCT" id="zoom">
+										<img src="{{products.image2.url}}" alt="IMG-PRODUCT" id="zoom">
 									</div>
 									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-										href="{{value.image2.url}}">
+										href="{{products.image2.url}}">
 										<i class="fa fa-expand"></i>
 									</a>
 								</div>
 							</div>
 
-							<div class="item-slick3" data-thumb="{{value.image3.url}}">
+							<div class="item-slick3" data-thumb="{{products.image3.url}}">
 								<div class="wrap-pic-w pos-relative">
-									<img src="{{value.image3.url}}" alt="IMG-PRODUCT" id="zoom">
+									<img src="{{products.image3.url}}" alt="IMG-PRODUCT" id="zoom">
 
 									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-										href="{{value.image3.url}}">
+										href="{{products.image3.url}}">
 										<i class="fa fa-expand"></i>
 									</a>
 								</div>
 							</div>
 
-							<div class="item-slick3" data-thumb="{{value.image4.url}}">
+							<div class="item-slick3" data-thumb="{{products.image4.url}}">
 								<div class="wrap-pic-w pos-relative">
-									<img src="{{value.image4.url}}" alt="IMG-PRODUCT" id="zoom">
+									<img src="{{products.image4.url}}" alt="IMG-PRODUCT" id="zoom">
 
 									<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-										href="{{value.image4.url}}">
+										href="{{products.image4.url}}">
 										<i class="fa fa-expand"></i>
 									</a>
 								</div>
@@ -73,31 +73,31 @@
 					<div class="p-r-50 p-t-5 p-lr-0-lg pt-5">
 						<div class="container pt-5">
 							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								{{value.product_name}}
+								{{products.product_name}}
 							</h4>
 							<!-- <span class="ltext-10 cl2"> -->
-							{% if value.discount_price %}
+							{% if products.discount_price %}
 							<span class="mtext-105 cl2 js-name-detail p-b-14">
-								<del>{{value.price}}</del>
+								<del>{{products.price}}</del>
 							</span>
 							<span class="mtext-105 cl2 js-name-detail p-b-14">
-								&nbsp{{value.discount_price}}
+								&nbsp{{products.discount_price}}
 							</span>
 							{% else %}
 							<span class="mtext-105 cl2 js-name-detail p-b-14">
-								{{value.price}}
+								{{products.price}}
 							</span>
 							{% endif 	%}
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-204 flex-w flex-m respon6-next">
-									<input type="hidden" class="product-id" value="{{value.id}}" />
-									<input type="hidden" class="product-title" value="{{value.product_name}}" />
-									<a href="{% url 'addtocart' value.id %}"><button
+									<input type="hidden" class="product-id" value="{{products.id}}" />
+									<input type="hidden" class="product-title" value="{{products.product_name}}" />
+									<a href="{% url 'addtocart' products.id %}"><button
 											class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04  js-addcart-detail"
 											id="addToCartBtn">
 											Add to cart
 										</button>
-										<a href="{% url 'add_to_wishlist' value.id %}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+										<a href="{% url 'add_to_wishlist' products.id %}" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
 											<i class="zmdi zmdi-favorite-outline"></i>
 										</a>
 									</a>
@@ -122,7 +122,7 @@
 						<div class="tab-pane fade show active" id="description" role="tabpanel">
 							<div class="how-pos2 p-lr-15-md">
 								<p class="stext-102 cl6">
-									{{value.description}}
+									{{products.description}}
 								</p>
 							</div>
 						</div>
