@@ -16,14 +16,14 @@ from decouple import config
 
 
 
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
+# import sentry_sdk
+# from sentry_sdk.integrations.django import DjangoIntegration
 
-sentry_sdk.init(
-    dsn="https://d1a03e4fada8417eb687d2461b23f457@o1427334.ingest.sentry.io/6776675",
-    integrations=[
-        DjangoIntegration(),
-    ],
+# sentry_sdk.init(
+#     dsn="https://d1a03e4fada8417eb687d2461b23f457@o1427334.ingest.sentry.io/6776675",
+#     integrations=[
+#         DjangoIntegration(),
+#     ],
 
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
@@ -33,7 +33,7 @@ sentry_sdk.init(
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth) you may enable sending PII data.
     # send_default_pii=True
-)
+# )
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -166,21 +166,21 @@ USE_TZ = True
 
 
 # AWS S3 Static Files Configuration
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = 'public-read'
-AWS_LOCATION = 'static'
+# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = 'public-read'
+# AWS_LOCATION = 'static'
 
-STATICFILES_DIRS = [
-    'static',
-]
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATICFILES_DIRS = [
+#     'static',
+# ]
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 DEFAULT_FILE_STORAGE = 'main.media_storages.MediaStorage'
@@ -195,14 +195,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-ACCOUNT_SID = config('ACCOUNT_SID')
-AUTH_TOKEN  = config('AUTH_TOKEN')
-COUNTRY_CODE = '+91'
-TWILIO_PHONE_NUMBER = '+19108123104'
-SERVICES = config('SERVICES')
+# ACCOUNT_SID = config('ACCOUNT_SID')
+# AUTH_TOKEN  = config('AUTH_TOKEN')
+# COUNTRY_CODE = '+91'
+# TWILIO_PHONE_NUMBER = '+19108123104'
+# SERVICES = config('SERVICES')
 
-PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
+# PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = True
 
-RAZOR_KEY_ID = config('RAZOR_KEY_ID')
-RAZOR_KEY_SECRET = config('RAZOR_KEY_SECRET')
+# RAZOR_KEY_ID = config('RAZOR_KEY_ID')
+# RAZOR_KEY_SECRET = config('RAZOR_KEY_SECRET')
